@@ -102,32 +102,30 @@ function GroupItem(props) {
     // styles:
     const sheet = useGroupItemSheet();
     // jsx:
-    return (<>
-            {((child) => {
-            // excludes hidden element:
-            if (isTypeOf(child, VisuallyHidden))
-                return child;
-            // overlayed element:
-            if (isTypeOf(child, Popup))
-                return child;
-            if (isTypeOf(child, Collapse))
-                return child;
-            if (isTypeOf(child, Dropdown))
-                return child;
-            // React element:
-            if (React.isValidElement(child)) {
-                return (<child.type 
-                // other props:
-                {...child.props} 
-                // classes:
-                classes={[...(child.props.classes ?? []),
-                        sheet.main, // inject GroupItem class
-                    ]}/>);
-            } // if
-            // unknown element or text or null:
+    return (React.createElement(React.Fragment, null, ((child) => {
+        // excludes hidden element:
+        if (isTypeOf(child, VisuallyHidden))
             return child;
-        })(props.children)}
-        </>);
+        // overlayed element:
+        if (isTypeOf(child, Popup))
+            return child;
+        if (isTypeOf(child, Collapse))
+            return child;
+        if (isTypeOf(child, Dropdown))
+            return child;
+        // React element:
+        if (React.isValidElement(child)) {
+            return (React.createElement(child.type
+            // other props:
+            , { ...child.props, 
+                // classes:
+                classes: [...(child.props.classes ?? []),
+                    sheet.main, // inject GroupItem class
+                ] }));
+        } // if
+        // unknown element or text or null:
+        return child;
+    })(props.children)));
 }
 GroupItem.prototype = ListItem.prototype; // mark as ListItem compatible
 export function Group(props) {
@@ -136,21 +134,17 @@ export function Group(props) {
     // children:
     children, ...restProps } = props;
     // jsx:
-    return (<List 
-    // other props:
-    {...restProps} 
-    // semantics:
-    semanticTag={props.semanticTag ?? [null]} semanticRole={props.semanticRole ?? 'group'} 
-    // layouts:
-    orientation={props.orientation ?? 'inline'} 
-    // variants:
-    mild={props.mild ?? false}>
-            {React.Children.map(children, (child, index) => (<GroupItem 
+    return (React.createElement(List, { ...restProps, 
+        // semantics:
+        semanticTag: props.semanticTag ?? [null], semanticRole: props.semanticRole ?? 'group', 
+        // layouts:
+        orientation: props.orientation ?? 'inline', 
+        // variants:
+        mild: props.mild ?? false }, React.Children.map(children, (child, index) => (React.createElement(GroupItem
+    // essentials:
+    , { 
         // essentials:
-        key={index}>
-                    {child}
-                </GroupItem>))}
-        </List>);
+        key: index }, child)))));
 }
 Group.prototype = List.prototype; // mark as List compatible
 export { Group as default };
