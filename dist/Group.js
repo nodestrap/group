@@ -3,11 +3,11 @@ import { default as React, } from 'react'; // base technology of our nodestrap c
 // cssfn:
 import { 
 // compositions:
-composition, mainComposition, imports, 
-// layouts:
-layout, 
+mainComposition, 
+// styles:
+style, imports, 
 // rules:
-variants, rule, } from '@cssfn/cssfn'; // cssfn core
+rule, } from '@cssfn/cssfn'; // cssfn core
 import { 
 // hooks:
 createUseSheet, } from '@cssfn/react-cssfn'; // cssfn for react
@@ -47,11 +47,11 @@ export { defaultOrientationRuleOptions };
 export const usesGroupItemLayout = (options) => {
     // options:
     options = normalizeOrientationRule(options, defaultOrientationRuleOptions);
-    return composition([
-        imports([
+    return style({
+        ...imports([
             usesListItemBaseLayout(options),
         ]),
-        layout({
+        ...style({
             // no layout modification needed.
             // the layout is belong to the Button/Radio/Check itself.
             // sizes:
@@ -60,37 +60,31 @@ export const usesGroupItemLayout = (options) => {
             // customize:
             ...usesGeneralProps(cssProps), // apply general cssProps
         }),
-    ]);
+    });
 };
 export const usesGroupItemVariants = () => {
     // dependencies:
     // layouts:
-    const [sizes] = usesSizeVariant((sizeName) => composition([
-        layout({
-            // overwrites propName = propName{SizeName}:
-            ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
-        }),
-    ]));
-    return composition([
-        imports([
+    const [sizes] = usesSizeVariant((sizeName) => style({
+        // overwrites propName = propName{SizeName}:
+        ...overwriteProps(cssDecls, usesSuffixedProps(cssProps, sizeName)),
+    }));
+    return style({
+        ...imports([
             // layouts:
             sizes(),
         ]),
-    ]);
+    });
 };
 export const useGroupItemSheet = createUseSheet(() => [
-    mainComposition([
-        variants([
-            rule('&&', [
-                imports([
-                    // layouts:
-                    usesGroupItemLayout(),
-                    // variants:
-                    usesGroupItemVariants(),
-                ]),
-            ]),
+    mainComposition(rule('&&', {
+        ...imports([
+            // layouts:
+            usesGroupItemLayout(),
+            // variants:
+            usesGroupItemVariants(),
         ]),
-    ]),
+    })),
 ], /*sheetId :*/ 'd2scsx4yqe'); // an unique salt for SSR support, ensures the server-side & client-side have the same generated class names
 // configs:
 export const [cssProps, cssDecls, cssVals, cssConfig] = createCssConfig(() => {
