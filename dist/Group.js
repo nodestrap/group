@@ -77,7 +77,7 @@ export const usesGroupItemVariants = () => {
     });
 };
 export const useGroupItemSheet = createUseSheet(() => [
-    mainComposition(rule('&&', {
+    mainComposition(rule('&&:not(_)', {
         ...imports([
             // layouts:
             usesGroupItemLayout(),

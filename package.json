@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/group",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "Groups a series of (mostly) any components and stacks them horizontally or vertically.",
   "type": "module",
   "main": "dist/Group.js",
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/nodestrap/group#readme",
   "dependencies": {
     "@cssfn/css-config": "^1.0.4",
-    "@cssfn/cssfn": "^1.0.11",
+    "@cssfn/cssfn": "^1.0.12",
     "@cssfn/react-cssfn": "^1.0.11",
     "@nodestrap/basic": "^4.0.7",
     "@nodestrap/collapse": "^4.0.4",
