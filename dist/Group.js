@@ -101,11 +101,11 @@ function GroupItem(props) {
         if (isTypeOf(child, VisuallyHidden))
             return child;
         // overlayed element:
-        if (isTypeOf(child, Popup))
+        if (isTypeOf(child, Popup) && child.props.targetRef)
             return child;
-        if (isTypeOf(child, Collapse))
+        if (isTypeOf(child, Collapse) && child.props.targetRef)
             return child;
-        if (isTypeOf(child, Dropdown))
+        if (isTypeOf(child, Dropdown) && child.props.targetRef)
             return child;
         // React element:
         if (React.isValidElement(child)) {
