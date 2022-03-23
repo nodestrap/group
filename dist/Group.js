@@ -109,13 +109,12 @@ function GroupItem(props) {
             return child;
         // React element:
         if (React.isValidElement(child)) {
-            return (React.createElement(child.type
-            // other props:
-            , { ...child.props, 
+            return React.cloneElement(child, {
                 // classes:
                 classes: [...(child.props.classes ?? []),
                     sheet.main, // inject GroupItem class
-                ] }));
+                ],
+            });
         } // if
         // unknown element or text or null:
         return child;
@@ -125,9 +124,19 @@ GroupItem.prototype = ListItem.prototype; // mark as ListItem compatible
 export function Group(props) {
     // rest props:
     const { 
+    // layouts:
+    nude, 
+    // colors:
+    mild, 
     // children:
     children, ...restProps } = props;
     // jsx:
+    const defaultChildProps = {
+        // layouts:
+        nude,
+        // colors:
+        mild,
+    };
     return (React.createElement(List, { ...restProps, 
         // semantics:
         semanticTag: props.semanticTag ?? [null], semanticRole: props.semanticRole ?? 'group', 
@@ -138,7 +147,7 @@ export function Group(props) {
     // essentials:
     , { 
         // essentials:
-        key: index }, child)))));
+        key: index }, React.isValidElement(child) ? React.cloneElement(React.cloneElement(child, defaultChildProps), child.props) : child)))));
 }
 Group.prototype = List.prototype; // mark as List compatible
 export { Group as default };

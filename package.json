@@ -1,6 +1,6 @@
 {
   "name": "@nodestrap/group",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "Groups a series of (mostly) any components and stacks them horizontally or vertically.",
   "type": "module",
   "main": "dist/Group.js",
@@ -40,7 +40,7 @@
     "@nodestrap/popup": "^4.0.8",
     "@nodestrap/utilities": "^4.0.3",
     "@nodestrap/visually-hidden": "^4.0.5",
-    "@types/react": "^17.0.41",
+    "@types/react": "^17.0.42",
     "react": "^17.0.2"
   }
 }
